@@ -1,0 +1,68 @@
+import java.util.*;
+public class Main {
+    public static void solve(int i, int j, int[][] a, int n, ArrayList<String> ans, String move, int[][] vis, int[] di, int[] dj ){
+        
+        //base case: destination reached
+        if(i==n-1 && j==n-1){
+            ans.add(move);
+            return;
+        }
+        
+         // Direction characters: D, L, R, U
+         String dir= "DLRU";
+         
+         // Explore all 4 directions
+         for(int ind=0 ; ind < 4 ; ind++){
+             int nexti= i+ di[ind];
+             int nextj= j+ dj[ind];
+             
+              // Check boundaries and conditions
+              if(nexti>=0 && nextj>=0 && nexti<n && nextj<n 
+              && vis[nexti][nextj] == 0 && a[nexti][nextj]==1){
+                  vis[i][j]=1; //mark visited
+                  
+                  solve(nexti, nextj, a, n, ans, move+dir.charAt(ind), vis, di, dj);
+                  vis[i][j]=0; //mark unvisited (backtrack)
+                  
+              }
+         }
+    }
+    
+    public static ArrayList<String> findpath(int[][]m, int n){
+        ArrayList<String> ans= new ArrayList<>();
+        int[][] vis= new int[n][n];
+        
+        int[] di= {+1, 0, 0, -1};
+        int[] dj= {0, -1, +1, 0};
+        
+        if(m[0][0]==1){ //only when cell is 1
+            solve(0,0,m,n,ans,"", vis, di,dj);
+        }
+        return ans;
+    }
+    
+    
+    
+    public static void main(String[] args) {
+        Scanner sc= new Scanner(System.in);
+        System.out.print("Enter the size of the matrix (n): ");
+        int n = sc.nextInt();
+        int[][] maze= new int[n][n];
+        System.out.println("Enter the matrix elements (0 for blocked, 1 for open):");
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                maze[i][j]= sc.nextInt();
+            }
+        }
+        ArrayList<String> result= findpath(maze,n);
+        if (result.isEmpty()) {
+            System.out.println("No path found!");
+        } else {
+            System.out.println("Possible paths are:");
+            for (String x : result) {
+                System.out.println(x);
+            }
+        }
+
+    }
+}
