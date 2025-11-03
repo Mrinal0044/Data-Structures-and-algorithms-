@@ -1,0 +1,40 @@
+1. What is a String in Java?
+In Java, a string is a sequence of characters enclosed in quotes " ".
+Example: String s = "hello";
+
+2. Strings are Immutable (You Can’t Change Them!)
+This is the most important rule: Once a String is created, it cannot be changed.
+Example:
+String s = "hello";
+s.concat(" world");   // This doesn't change 's'
+System.out.println(s);  // prints "hello"
+
+If you actually want to modify it:
+s = s.concat(" world");
+System.out.println(s);  // prints "hello world"
+
+
+| Function             | What it does             | Example                         | Output          |
+| -------------------- | ------------------------ | ------------------------------- | --------------- |
+| `length()`           | Gives string length      | `"hello".length()`              | 5               |
+| `charAt(i)`          | Character at index `i`   | `"hello".charAt(1)`             | `'e'`           |
+| `substring(a, b)`    | Extracts part of string  | `"hello".substring(1, 4)`       | `"ell"`         |
+| `equals()`           | Checks equality          | `"cat".equals("cat")`           | `true`          |
+| `equalsIgnoreCase()` | Ignores case             | `"Cat".equalsIgnoreCase("cat")` | `true`          |
+| `indexOf()`          | Finds index of substring | `"banana".indexOf("na")`        | `2`             |
+| `startsWith()`       | Checks prefix            | `"hello".startsWith("he")`      | `true`          |
+| `endsWith()`         | Checks suffix            | `"hello".endsWith("lo")`        | `true`          |
+| `toLowerCase()`      | Converts to lowercase    | `"HELLO".toLowerCase()`         | `"hello"`       |
+| `toUpperCase()`      | Converts to uppercase    | `"hi".toUpperCase()`            | `"HI"`          |
+| `replace()`          | Replaces characters      | `"apple".replace('p','x')`      | `"axxle"`       |
+| `split()`            | Splits string into array | `"a,b,c".split(",")`            | `["a","b","c"]` |
+| `trim()`             | Removes extra spaces     | `"  hi  ".trim()`               | `"hi"`          |
+
+
+4. Use StringBuilder When Modifying Strings Often
+If you need to build or change strings in a loop, use StringBuilder.
+Example:
+StringBuilder sb = new StringBuilder("hello");
+sb.append(" world");
+System.out.println(sb.toString());  // "hello world"
+✅ StringBuilder is mutable, faster for concatenation, and essential for interview coding.
