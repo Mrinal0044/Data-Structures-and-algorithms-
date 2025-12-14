@@ -1,0 +1,24 @@
+Majority element :-
+1. brute force TC= O(n^2) -> not preffered
+2. optimal TC= O(nlog n)
+3. moore's algorithm (best) ->  TC= O(n)
+
+class Solution {
+    public int majorityElement(int[] nums) {
+        int n=nums.length;
+        int freq=0;
+        int ans=0;
+        for(int i=0; i<n; i++){
+            if(freq==0){
+                ans=nums[i];
+            }
+            if(ans== nums[i]){
+                freq++;
+            }
+            if(ans != nums[i]){
+                freq--;
+            }
+        }
+        return ans;
+    }
+}
