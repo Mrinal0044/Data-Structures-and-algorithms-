@@ -1,0 +1,68 @@
+//INSERTION
+class LL {
+    Node head;
+    class Node{
+        String data;
+        Node next;
+        
+        //contructor
+        Node(String data){
+            this.data=data;
+            this.next=null;
+        }
+    }
+    
+    //to add a node at the beginning
+    public void addfirst(String data){
+        Node newnode= new Node(data);
+        if(head==null){
+        head= newnode;
+        return;
+        }
+        newnode.next=head;
+        head=newnode;
+    }
+    
+    //to add a node at the end
+    public void addlast(String data){
+        Node newnode= new Node(data);
+        if(head==null){
+            head=newnode;
+            return;
+        }
+        //now traverse the entire list and add a node at the end
+        Node curr= head;
+        while(curr.next !=null){
+            curr = curr.next;
+        }
+        curr.next= newnode;
+    }
+    
+    //to print the ll
+    public void printll(){
+        Node curr= head;
+        if(head==null){
+            System.out.printf("list is empty.\n");
+            return;
+        }
+        while(curr != null){
+            System.out.printf("%s->",curr.data);
+            curr= curr.next;
+        }
+        System.out.printf("null\n");
+    }
+    public static void main(String[] args) {
+        LL list= new LL();
+        list.addfirst("a");
+        list.addfirst("c");
+        list.addfirst("x");
+        
+        list.printll();
+        
+        list.addlast("z");
+        list.printll();
+    }
+}
+
+
+
