@@ -1,0 +1,86 @@
+import java.util.*;
+
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    TreeNode(int v) {
+        val = v;
+    }
+}
+
+class Pair {
+    TreeNode node;
+    int col;
+
+    Pair(TreeNode n, int c) {
+        node = n;
+        col = c;
+    }
+}
+
+public class Main {
+
+    static void verticalTraversal(TreeNode root) {
+
+        TreeMap<Integer, List<Integer>> map = new TreeMap<>();
+        Queue<Pair> q = new LinkedList<>();
+
+        q.add(new Pair(root, 0));
+
+        while (!q.isEmpty()) {
+
+            Pair p = q.poll();
+            TreeNode node = p.node;
+            int col = p.col;
+
+            map.putIfAbsent(col, new ArrayList<>());
+            map.get(col).add(node.val);
+
+            if (node.left != null)
+                q.add(new Pair(node.left, col - 1));
+
+            if (node.right != null)
+                q.add(new Pair(node.right, col + 1));
+        }
+
+        for (List<Integer> list : map.values()) {
+            for (int x : list)
+                System.out.print(x + " ");
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();     // number of nodes
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+
+        // Build tree using level order
+        TreeNode root = new TreeNode(arr[0]);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        int i = 1;
+
+        while (!q.isEmpty() && i < n) {
+
+            TreeNode curr = q.poll();
+
+            curr.left = new TreeNode(arr[i++]);
+            q.add(curr.left);
+
+            if (i < n) {
+                curr.right = new TreeNode(arr[i++]);
+                q.add(curr.right);
+            }
+        }
+
+        verticalTraversal(root);
+    }
+}
