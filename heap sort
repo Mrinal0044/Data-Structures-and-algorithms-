@@ -1,0 +1,77 @@
+import java.util.*;
+
+public class Main {
+
+    // Function to maintain max heap property
+    static void heapify(int a[], int n, int i) {
+
+        int largest = i;          // assume current node is the largest
+        int left = 2*i + 1;       // index of left child
+        int right = 2*i + 2;      // index of right child
+
+        // check if left child exists and is greater than current largest
+        if(left < n && a[left] > a[largest])
+            largest = left;
+
+        // check if right child exists and is greater than current largest
+        if(right < n && a[right] > a[largest])
+            largest = right;
+
+        // if largest is not the root node
+        if(largest != i){
+
+            // swap root with largest child
+            int temp = a[i];
+            a[i] = a[largest];
+            a[largest] = temp;
+
+            // recursively heapify the affected subtree
+            heapify(a, n, largest);
+        }
+    }
+
+    static void heapSort(int a[], int n){
+
+        // Step 1: Build max heap from array
+        // start from last non-leaf node
+        for(int i = n/2 - 1; i >= 0; i--)
+            heapify(a, n, i);
+
+        // Step 2: Extract elements from heap one by one
+        for(int i = n-1; i >= 0; i--){
+
+            // move current root (largest element) to the end
+            int temp = a[0];
+            a[0] = a[i];
+            a[i] = temp;
+
+            // call heapify on reduced heap
+            heapify(a, i, 0);
+        }
+    }
+
+    // function to print array elements
+    static void printArr(int a[], int n){
+        for(int i=0;i<n;i++)
+            System.out.print(a[i]+" ");
+    }
+
+    public static void main(String[] args){
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();   // read number of elements
+
+        int[] a = new int[n];   // create array of size n
+
+        // take array input from user
+        for(int i=0;i<n;i++)
+            a[i] = sc.nextInt();
+
+        // perform heap sort
+        heapSort(a,n);
+
+        // print sorted array
+        printArr(a,n);
+    }
+}
