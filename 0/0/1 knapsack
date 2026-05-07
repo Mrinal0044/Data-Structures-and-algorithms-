@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class Knapsack {
+
+    // Function to solve 0/1 Knapsack using recursion
+    static int knapsack(int W, int wt[], int val[], int n) {
+
+        // Base condition
+        if (n == 0 || W == 0)
+            return 0;
+
+        // If current item's weight is more than capacity
+        if (wt[n - 1] > W)
+            return knapsack(W, wt, val, n - 1);
+
+        // Return maximum of including or excluding item
+        else
+            return Math.max(
+                    val[n - 1] + knapsack(W - wt[n - 1], wt, val, n - 1),
+                    knapsack(W, wt, val, n - 1)
+            );
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of items: ");
+        int n = sc.nextInt();
+
+        int wt[] = new int[n];
+        int val[] = new int[n];
+
+        System.out.println("Enter weights:");
+        for (int i = 0; i < n; i++)
+            wt[i] = sc.nextInt();
+
+        System.out.println("Enter values:");
+        for (int i = 0; i < n; i++)
+            val[i] = sc.nextInt();
+
+        System.out.print("Enter capacity: ");
+        int W = sc.nextInt();
+
+        int ans = knapsack(W, wt, val, n);
+
+        System.out.println("Maximum Profit = " + ans);
+
+        sc.close();
+    }
+}
